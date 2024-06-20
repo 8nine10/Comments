@@ -18,7 +18,7 @@ export default async function Home({
         <h1 className="head-text text-left">Home</h1>
         <section className="mt-9 flex flex-col gap-10">
           {result.posts.length === 0 ? (
-            <p className="no-result">No threads found</p>
+            <p className="no-result">No Comments found</p>
           ) : (
             result.posts.map((post) => {
               if (post.parentId === null) {
@@ -53,7 +53,7 @@ export default async function Home({
     return (
       <>
         <h1 className="head-text text-left">Home</h1>
-        <p className="error-message">Failed to load threads. Please try again later.</p>
+        <p className="error-message">Failed to load Comments. Please try again later.</p>
       </>
     );
   }

@@ -8,7 +8,7 @@ function Topbar() {
         <nav className="topbar">
             <Link href='/' className="flex items-center gap-4">
                 <Image src='/assets/logo.svg' alt='logo' width={28} height={28} />
-                <p className="text-heading3-bold text-light-1 max-xs:hidden">Threads</p>
+                <p className="text-heading3-bold text-light-1 max-xs:hidden">Comments</p>
             </Link>
             <div className="flex items-center gap-1">
                 <div className="block md:hidden">
@@ -16,7 +16,6 @@ function Topbar() {
                         <SignOutButton>
                             <div className="flex cursor-pointer">
                                 <Image src='/assets/logout.svg' alt="logout" width={24} height={24} />
-                                {/* <p className="text-light-1">Logout</p> */}
                             </div>
                         </SignOutButton>
                     </SignedIn>

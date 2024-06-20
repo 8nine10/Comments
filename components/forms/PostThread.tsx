@@ -10,12 +10,13 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
+import { useState } from "react";
 
 
 function PostThread({ userId }: { userId: string }) {
     const router = useRouter()
     const pathname = usePathname()
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const form = useForm({
         resolver: zodResolver(ThreadValidation),
@@ -26,13 +27,19 @@ function PostThread({ userId }: { userId: string }) {
     })
 
     const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
-        await createThread({ 
-            text: values.thread,
-            author: JSON.parse(userId),
-            communityId: null,
-            path: pathname,
-        })
-        router.push('/')
+        setIsSubmitting(true);
+        try {
+            await createThread({ 
+                text: values.thread,
+                author: JSON.parse(userId),
+                communityId: null,
+                path: pathname,
+            });
+            router.push('/');
+        } catch (error: any) {
+            console.error("Failed to create thread:", error);
+            setIsSubmitting(false);
+        }
     }
     return (
         <Form {...form}>
@@ -57,7 +64,9 @@ function PostThread({ userId }: { userId: string }) {
                         </FormItem>
                     )}
                 />
-                <Button type='submit' className="bg-primary-500">Post Thread</Button>
+                <Button type='submit' className="bg-primary-500" disabled={isSubmitting}>
+                    {isSubmitting ? 'Posting...' : 'Post Thread'}
+                </Button>
             </form>
         </Form>
     )
